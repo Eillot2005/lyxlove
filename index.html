@@ -13,17 +13,18 @@
       overflow: hidden; /* 防止滚动条 */
       background: linear-gradient(to bottom, #ff4500, #ff6347, #ff7f50);
       height: 100vh;
+      cursor: pointer; /* 鼠标指针样式 */
     }
 
     /* 动态背景的烟花 */
     .firework {
       position: absolute;
-      width: 20px;
-      height: 20px;
+      width: 25px;
+      height: 25px;
       border-radius: 50%;
       background: radial-gradient(circle, gold, orange, red);
-      box-shadow: 0 0 20px gold, 0 0 40px red;
-      animation: firework-animation 2s linear infinite;
+      box-shadow: 0 0 30px gold, 0 0 60px red;
+      animation: firework-animation 3s linear infinite;
     }
 
     @keyframes firework-animation {
@@ -33,11 +34,37 @@
       }
       50% {
         opacity: 0.8;
-        transform: scale(2) translate(-200px, -200px);
+        transform: scale(3) translate(-300px, -300px);
       }
       100% {
         opacity: 0;
-        transform: scale(3.5) translate(400px, -400px);
+        transform: scale(4) translate(600px, -600px);
+      }
+    }
+
+    /* 点击生成的烟花样式 */
+    .click-firework {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: radial-gradient(circle, hotpink, yellow, pink);
+      box-shadow: 0 0 30px pink, 0 0 60px yellow;
+      animation: click-firework-animation 2.5s linear infinite;
+    }
+
+    @keyframes click-firework-animation {
+      0% {
+        opacity: 1;
+        transform: scale(0.5) translate(0, 0);
+      }
+      50% {
+        opacity: 0.8;
+        transform: scale(4) translate(-200px, -200px);
+      }
+      100% {
+        opacity: 0;
+        transform: scale(5) translate(400px, -400px);
       }
     }
 
@@ -82,34 +109,49 @@
       font-size: 18px;
       text-shadow: 2px 2px 5px black;
     }
-
   </style>
 </head>
 <body>
 <!-- 新年快乐文字 -->
 <div class="new-year">
   <h1>新年快乐！🎆🎇</h1>
-  <p>刘逸潇祝大家：新年快乐，万事如意！</p>
+  <p>刘逸潇祝大家新年快乐，万事如意！</p>
 </div>
 
 <!-- 动态烟花背景 -->
 <script>
+  // 背景自动生成烟花
   function createFirework() {
     const firework = document.createElement('div');
     firework.className = 'firework';
     firework.style.left = Math.random() * window.innerWidth + 'px';
     firework.style.top = Math.random() * window.innerHeight + 'px';
-    firework.style.animationDuration = 2 + Math.random() * 1.5 + 's'; // 每个烟花的动画时间随机
+    firework.style.animationDuration = 3 + Math.random() * 1.5 + 's'; // 每个烟花的动画时间随机
     document.body.appendChild(firework);
 
     // 移除烟花元素以防止过多占用资源
     setTimeout(() => {
       firework.remove();
-    }, 3500);
+    }, 4000);
   }
 
-  // 每隔150ms生成一个烟花
-  setInterval(createFirework, 150);
+  // 点击屏幕生成烟花
+  document.addEventListener('click', (event) => {
+    const firework = document.createElement('div');
+    firework.className = 'click-firework'; // 点击的烟花样式
+    firework.style.left = event.clientX + 'px'; // 根据点击位置生成
+    firework.style.top = event.clientY + 'px';
+    firework.style.animationDuration = '2.5s';
+    document.body.appendChild(firework);
+
+    // 移除烟花元素
+    setTimeout(() => {
+      firework.remove();
+    }, 3000);
+  });
+
+  // 每隔200ms生成一个背景烟花
+  setInterval(createFirework, 200);
 </script>
 
 <!-- 底部祝福 -->
