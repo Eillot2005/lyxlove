@@ -48,8 +48,8 @@
       width: 30px;
       height: 30px;
       border-radius: 50%;
-      background: radial-gradient(circle, hotpink, yellow, pink);
-      box-shadow: 0 0 30px pink, 0 0 60px yellow;
+      background: radial-gradient(circle, cyan, yellow, purple);
+      box-shadow: 0 0 30px cyan, 0 0 60px yellow;
       animation: click-firework-animation 2.5s linear infinite;
     }
 
@@ -109,17 +109,59 @@
       font-size: 18px;
       text-shadow: 2px 2px 5px black;
     }
+
+    /* 彩蛋弹窗样式 */
+    .easter-egg {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80%;
+      background: rgba(0, 0, 0, 0.8);
+      color: white;
+      text-align: center;
+      padding: 50px;
+      font-size: 36px;
+      border-radius: 20px;
+      box-shadow: 0 0 20px white;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    /* 弹窗淡入效果 */
+    .easter-egg.show {
+      animation: fade-in 1s forwards;
+    }
+
+    @keyframes fade-in {
+      from {
+        opacity: 0;
+        visibility: visible;
+      }
+      to {
+        opacity: 1;
+        visibility: visible;
+      }
+    }
   </style>
 </head>
 <body>
 <!-- 新年快乐文字 -->
 <div class="new-year">
   <h1>新年快乐！🎆🎇</h1>
-  <p>刘逸潇祝大家新年快乐，万事如意！</p>
+  <p>刘逸潇祝大家：新的一年，幸福与成功与你相伴！</p>
+</div>
+
+<!-- 彩蛋弹窗 -->
+<div class="easter-egg" id="easter-egg">
+  你的新年愿望一定可以实现的！✨
 </div>
 
 <!-- 动态烟花背景 -->
 <script>
+  let clickCount = 0; // 点击计数
+
   // 背景自动生成烟花
   function createFirework() {
     const firework = document.createElement('div');
@@ -132,7 +174,7 @@
     // 移除烟花元素以防止过多占用资源
     setTimeout(() => {
       firework.remove();
-    }, 4000);
+    }, 3000);
   }
 
   // 点击屏幕生成烟花
@@ -148,13 +190,32 @@
     setTimeout(() => {
       firework.remove();
     }, 3000);
+
+    // 增加点击计数
+    clickCount++;
+    if (clickCount === 15) {
+      showEasterEgg();
+      clickCount = 0; // 重置计数器
+    }
   });
+
+  // 显示彩蛋弹窗
+  function showEasterEgg() {
+    const easterEgg = document.getElementById('easter-egg');
+    easterEgg.classList.add('show'); // 添加显示类
+    easterEgg.style.visibility = 'visible';
+    setTimeout(() => {
+      easterEgg.style.visibility = 'hidden';
+      easterEgg.style.opacity = '0';
+      easterEgg.classList.remove('show'); // 移除显示类
+    }, 4000); // 4秒后自动隐藏
+  }
 
   // 每隔200ms生成一个背景烟花
   setInterval(createFirework, 200);
 </script>
 
 <!-- 底部祝福 -->
-<div class="footer">© 2025 新年快乐</div>
+<div class="footer">© 2025 新年快乐，由 刘逸潇 提供</div>
 </body>
 </html>
