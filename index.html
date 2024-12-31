@@ -150,6 +150,16 @@
 <!-- 新年快乐文字 -->
 <div class="new-year">
   <h1>新年快乐！🎆🎇</h1>
+  <!--显示日期当天日期-->
+  <p>今天是: <span id="date"></span></p>
+  <script>
+    document.getElementById('date').textContent = new Date().toLocaleDateString('zh-CN', {
+      year: 'numeric',
+      month: 'numeric',
+      day: 'numeric'
+      //将第一个斜杠替换为年，第二个替换为月，第三个替换为日
+    }).replace(/\//, '年').replace(/\//, '月') + '日';
+  </script>
   <p>刘逸潇祝大家：新的一年，幸福与成功与你相伴！</p>
 </div>
 
@@ -205,10 +215,10 @@
     easterEgg.classList.add('show'); // 添加显示类
     easterEgg.style.visibility = 'visible';
     setTimeout(() => {
-      easterEgg.style.visibility = 'hidden';
-      easterEgg.style.opacity = '0';
+      easterEgg.style.visibility = 'hidden';// 3秒后隐藏
+      easterEgg.style.opacity = '0';// 3秒后隐藏
       easterEgg.classList.remove('show'); // 移除显示类
-    }, 4000); // 4秒后自动隐藏
+    }, 3000); // 3秒后自动隐藏
   }
 
   // 每隔200ms生成一个背景烟花
