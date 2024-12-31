@@ -3,10 +3,116 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Welcome to LYXLove.me</title>
+  <title>新年快乐</title>
+  <style>
+    /* 全局样式 */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+      overflow: hidden; /* 防止滚动条 */
+      background: linear-gradient(to bottom, #ff4500, #ff6347, #ff7f50);
+      height: 100vh;
+    }
+
+    /* 动态背景的烟花 */
+    .firework {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: radial-gradient(circle, gold, orange, red);
+      box-shadow: 0 0 20px gold, 0 0 40px red;
+      animation: firework-animation 2s linear infinite;
+    }
+
+    @keyframes firework-animation {
+      0% {
+        opacity: 1;
+        transform: scale(0.5) translate(0, 0);
+      }
+      50% {
+        opacity: 0.8;
+        transform: scale(2) translate(-200px, -200px);
+      }
+      100% {
+        opacity: 0;
+        transform: scale(3.5) translate(400px, -400px);
+      }
+    }
+
+    /* 新年快乐文字 */
+    .new-year {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      text-align: center;
+      text-shadow: 2px 2px 10px gold;
+    }
+
+    .new-year h1 {
+      font-size: 80px;
+      margin: 0;
+      animation: text-fade-in 2s ease-in-out infinite alternate;
+    }
+
+    .new-year p {
+      font-size: 30px;
+      margin: 10px 0 0;
+    }
+
+    @keyframes text-fade-in {
+      0% {
+        opacity: 0.5;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+
+    /* 底部祝福信息 */
+    .footer {
+      position: absolute;
+      bottom: 20px;
+      width: 100%;
+      text-align: center;
+      color: white;
+      font-size: 18px;
+      text-shadow: 2px 2px 5px black;
+    }
+
+  </style>
 </head>
 <body>
-<h1>LYXLove.me</h1>
-<p>txz!欢迎来到我的网站！新年快乐！</p>
+<!-- 新年快乐文字 -->
+<div class="new-year">
+  <h1>新年快乐！🎆🎇</h1>
+  <p>刘逸潇祝大家：新年快乐，万事如意！</p>
+</div>
+
+<!-- 动态烟花背景 -->
+<script>
+  function createFirework() {
+    const firework = document.createElement('div');
+    firework.className = 'firework';
+    firework.style.left = Math.random() * window.innerWidth + 'px';
+    firework.style.top = Math.random() * window.innerHeight + 'px';
+    firework.style.animationDuration = 2 + Math.random() * 1.5 + 's'; // 每个烟花的动画时间随机
+    document.body.appendChild(firework);
+
+    // 移除烟花元素以防止过多占用资源
+    setTimeout(() => {
+      firework.remove();
+    }, 3500);
+  }
+
+  // 每隔150ms生成一个烟花
+  setInterval(createFirework, 150);
+</script>
+
+<!-- 底部祝福 -->
+<div class="footer">© 2025 新年快乐</div>
 </body>
 </html>
