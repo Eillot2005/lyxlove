@@ -3,133 +3,139 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>新年快乐</title>
+  <title>情人节快乐</title>
   <style>
-    /* 全局样式 */
     body {
       margin: 0;
       padding: 0;
       font-family: 'Arial', sans-serif;
-      overflow: hidden; /* 防止滚动条 */
-      background: linear-gradient(to bottom, #ff4500, #ff6347, #ff7f50);
+      overflow: hidden;
+      background: linear-gradient(to bottom, #ffe6f2, #ffb6c1, #ff69b4);
       height: 100vh;
-      cursor: pointer; /* 鼠标指针样式 */
+      cursor: pointer;
     }
 
-    /* 动态背景的烟花 */
-    .firework {
-      position: absolute;
-      width: 25px;
-      height: 25px;
-      border-radius: 50%;
-      background: radial-gradient(circle, gold, orange, red);
-      box-shadow: 0 0 30px gold, 0 0 60px red;
-      animation: firework-animation 3s linear infinite;
-    }
-
-    @keyframes firework-animation {
-      0% {
-        opacity: 1;
-        transform: scale(0.5) translate(0, 0);
-      }
-      50% {
-        opacity: 0.8;
-        transform: scale(3) translate(-300px, -300px);
-      }
-      100% {
-        opacity: 0;
-        transform: scale(4) translate(600px, -600px);
-      }
-    }
-
-    /* 点击生成的烟花样式 */
-    .click-firework {
+    /* 飘落的爱心 */
+    .heart {
       position: absolute;
       width: 30px;
       height: 30px;
-      border-radius: 50%;
-      background: radial-gradient(circle, cyan, yellow, purple);
-      box-shadow: 0 0 30px cyan, 0 0 60px yellow;
-      animation: click-firework-animation 2.5s linear infinite;
+      background: #ff1493;
+      transform: rotate(45deg);
+      animation: heartfall 4s ease-in infinite;
+      box-shadow: 0 0 15px rgba(255, 20, 147, 0.5);
     }
 
-    @keyframes click-firework-animation {
+    .heart:before,
+    .heart:after {
+      content: '';
+      width: 30px;
+      height: 30px;
+      background: #ff1493;
+      border-radius: 50%;
+      position: absolute;
+      box-shadow: 0 0 15px rgba(255, 20, 147, 0.5);
+    }
+
+    .heart:before {
+      left: -15px;
+    }
+
+    .heart:after {
+      top: -15px;
+    }
+
+    @keyframes heartfall {
       0% {
-        opacity: 1;
-        transform: scale(0.5) translate(0, 0);
+        transform: translateY(-100vh) rotate(45deg) scale(0);
       }
       50% {
-        opacity: 0.8;
-        transform: scale(4) translate(-200px, -200px);
+        transform: translateY(50vh) rotate(45deg) scale(1);
       }
       100% {
-        opacity: 0;
-        transform: scale(5) translate(400px, -400px);
+        transform: translateY(100vh) rotate(45deg) scale(0);
       }
     }
 
-    /* 新年快乐文字 */
-    .new-year {
+    /* 点击效果 */
+    .click-heart {
+      position: absolute;
+      pointer-events: none;
+      animation: heart-burst 1.5s ease-out forwards;
+      font-size: 30px;
+      filter: drop-shadow(0 0 10px rgba(255, 20, 147, 0.8));
+    }
+
+    @keyframes heart-burst {
+      0% {
+        transform: scale(0.1);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(3);
+        opacity: 0;
+      }
+    }
+
+    /* 中央文字 */
+    .valentine {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      color: white;
+      color: #ff1493;
       text-align: center;
-      text-shadow: 2px 2px 10px gold;
+      text-shadow: 2px 2px 10px rgba(255, 255, 255, 0.5);
     }
 
-    .new-year h1 {
-      font-size: 80px;
+    .valentine h1 {
+      font-size: 60px;
       margin: 0;
-      animation: text-fade-in 2s ease-in-out infinite alternate;
+      animation: pulse 2s ease-in-out infinite;
+      color: #ff1493;
+      text-shadow: 3px 3px 15px rgba(255, 255, 255, 0.7);
     }
 
-    .new-year p {
-      font-size: 30px;
-      margin: 10px 0 0;
+    .valentine p {
+      font-size: 24px;
+      margin: 20px 0;
+      line-height: 1.6;
     }
 
-    @keyframes text-fade-in {
-      0% {
-        opacity: 0.5;
-      }
-      100% {
-        opacity: 1;
-      }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
     }
 
-    /* 底部祝福信息 */
     .footer {
       position: absolute;
       bottom: 20px;
       width: 100%;
       text-align: center;
-      color: white;
+      color: #ff1493;
       font-size: 18px;
-      text-shadow: 2px 2px 5px black;
+      text-shadow: 2px 2px 8px rgba(255, 255, 255, 0.5);
     }
 
-    /* 彩蛋弹窗样式 */
     .easter-egg {
       position: fixed;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
       width: 80%;
-      background: rgba(0, 0, 0, 0.8);
+      background: rgba(255, 192, 203, 0.95);
       color: white;
       text-align: center;
       padding: 50px;
       font-size: 36px;
       border-radius: 20px;
-      box-shadow: 0 0 20px white;
+      box-shadow: 0 0 30px rgba(255, 20, 147, 0.6);
       z-index: 1000;
       opacity: 0;
       visibility: hidden;
     }
 
-    /* 弹窗淡入效果 */
     .easter-egg.show {
       animation: fade-in 1s forwards;
     }
@@ -147,85 +153,73 @@
   </style>
 </head>
 <body>
-<!-- 新年快乐文字 -->
-<div class="new-year">
-  <h1>新年快乐！🎆🎇</h1>
-  <!--显示日期当天日期-->
+<div class="valentine">
+  <h1>情人节快乐 ❤️</h1>
   <p>今天是: <span id="date"></span></p>
-  <script>
-    document.getElementById('date').textContent = new Date().toLocaleDateString('zh-CN', {
-      year: 'numeric',
-      month: 'numeric',
-      day: 'numeric'
-      //将第一个斜杠替换为年，第二个替换为月，第三个替换为日
-    }).replace(/\//, '年').replace(/\//, '月') + '日';
-  </script>
-  <p>刘逸潇祝大家：新的一年，幸福与成功与你相伴！</p>
+  <p>刘逸潇致：最爱的人</p>
 </div>
 
-<!-- 彩蛋弹窗 -->
 <div class="easter-egg" id="easter-egg">
-  你的新年愿望一定可以实现的！✨
+  爱你！💕
 </div>
 
-<!-- 动态烟花背景 -->
+<div class="footer">© 2025 情人节快乐，Love from 刘逸潇</div>
+
 <script>
-  let clickCount = 0; // 点击计数
+  // 显示日期
+  document.getElementById('date').textContent = new Date().toLocaleDateString('zh-CN', {
+    year: 'numeric',
+    month: 'numeric',
+    day: 'numeric'
+  }).replace(/\//, '年').replace(/\//, '月') + '日';
 
-  // 背景自动生成烟花
-  function createFirework() {
-    const firework = document.createElement('div');
-    firework.className = 'firework';
-    firework.style.left = Math.random() * window.innerWidth + 'px';
-    firework.style.top = Math.random() * window.innerHeight + 'px';
-    firework.style.animationDuration = 3 + Math.random() * 1.5 + 's'; // 每个烟花的动画时间随机
-    document.body.appendChild(firework);
+  // 创建飘落的爱心
+  function createHeart() {
+    const heart = document.createElement('div');
+    heart.className = 'heart';
+    heart.style.left = Math.random() * window.innerWidth + 'px';
+    heart.style.opacity = Math.random() * 0.5 + 0.5;
+    heart.style.fontSize = Math.random() * 10 + 10 + 'px';
+    document.body.appendChild(heart);
 
-    // 移除烟花元素以防止过多占用资源
     setTimeout(() => {
-      firework.remove();
-    }, 3000);
+      heart.remove();
+    }, 4000);
   }
 
-  // 点击屏幕生成烟花
+  // 点击效果
   document.addEventListener('click', (event) => {
-    const firework = document.createElement('div');
-    firework.className = 'click-firework'; // 点击的烟花样式
-    firework.style.left = event.clientX + 'px'; // 根据点击位置生成
-    firework.style.top = event.clientY + 'px';
-    firework.style.animationDuration = '2.5s';
-    document.body.appendChild(firework);
+    const heart = document.createElement('div');
+    heart.innerHTML = '❤️';
+    heart.className = 'click-heart';
+    heart.style.left = event.clientX + 'px';
+    heart.style.top = event.clientY + 'px';
+    document.body.appendChild(heart);
 
-    // 移除烟花元素
     setTimeout(() => {
-      firework.remove();
-    }, 3000);
+      heart.remove();
+    }, 1500);
 
-    // 增加点击计数
     clickCount++;
-    if (clickCount === 15) {
+    if (clickCount === 10) {
       showEasterEgg();
-      clickCount = 0; // 重置计数器
+      clickCount = 0;
     }
   });
 
-  // 显示彩蛋弹窗
+  let clickCount = 0;
+
   function showEasterEgg() {
     const easterEgg = document.getElementById('easter-egg');
-    easterEgg.classList.add('show'); // 添加显示类
-    easterEgg.style.visibility = 'visible';
+    easterEgg.classList.add('show');
     setTimeout(() => {
-      easterEgg.style.visibility = 'hidden';// 3秒后隐藏
-      easterEgg.style.opacity = '0';// 3秒后隐藏
-      easterEgg.classList.remove('show'); // 移除显示类
-    }, 3000); // 3秒后自动隐藏
+      easterEgg.classList.remove('show');
+      easterEgg.style.visibility = 'hidden';
+      easterEgg.style.opacity = '0';
+    }, 3000);
   }
 
-  // 每隔200ms生成一个背景烟花
-  setInterval(createFirework, 200);
+  setInterval(createHeart, 300);
 </script>
-
-<!-- 底部祝福 -->
-<div class="footer">© 2025 新年快乐，由 刘逸潇 提供</div>
 </body>
 </html>
