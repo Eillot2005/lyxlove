@@ -160,7 +160,8 @@
 </div>
 
 <div class="easter-egg" id="easter-egg">
-  爱你！💕
+  爱你！💕<br>
+  <span id="countdown">5</span>秒后跳转到更爱你的地方
 </div>
 
 <div class="footer">© 2025 情人节快乐，Love from 刘逸潇</div>
@@ -211,12 +212,18 @@
 
   function showEasterEgg() {
     const easterEgg = document.getElementById('easter-egg');
+    const countdown = document.getElementById('countdown');
     easterEgg.classList.add('show');
-    setTimeout(() => {
-      easterEgg.classList.remove('show');
-      easterEgg.style.visibility = 'hidden';
-      easterEgg.style.opacity = '0';
-    }, 3000);
+    
+    let seconds = 5;
+    const timer = setInterval(() => {
+      seconds--;
+      countdown.textContent = seconds;
+      if (seconds === 0) {
+        clearInterval(timer);
+        window.location.href = "video.html";
+      }
+    }, 1000);
   }
 
   setInterval(createHeart, 300);
