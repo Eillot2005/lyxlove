@@ -1,232 +1,347 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>情人节快乐</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Arial', sans-serif;
-      overflow: hidden;
-      background: linear-gradient(to bottom, #ffe6f2, #ffb6c1, #ff69b4);
-      height: 100vh;
-      cursor: pointer;
-    }
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="shortcut icon" href="./favicon.ico">
+    <title>💗LDY💗</title>
+    <audio id="bgmMusic" src="music.mp3" autoplay="autoplay" loop preload="auto" type="audio/mp3"></audio>
+    <div class="mPower"><span id="on" title="点击暂停" style=""></span><span id="off" title="点击播放" style=""></span></div>
+    <style type="text/css">
+        body {
+            margin: 0;
+            overflow: hidden;
+            /* 更改为粉色渐变背景 */
+            background: linear-gradient(45deg, #ffe6f2, #ffb6c1, #ff69b4);
+        }
 
-    /* 飘落的爱心 */
-    .heart {
-      position: absolute;
-      width: 30px;
-      height: 30px;
-      background: #ff1493;
-      transform: rotate(45deg);
-      animation: heartfall 4s ease-in infinite;
-      box-shadow: 0 0 15px rgba(255, 20, 147, 0.5);
-    }
+        canvas {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
 
-    .heart:before,
-    .heart:after {
-      content: '';
-      width: 30px;
-      height: 30px;
-      background: #ff1493;
-      border-radius: 50%;
-      position: absolute;
-      box-shadow: 0 0 15px rgba(255, 20, 147, 0.5);
-    }
+        #pinkboard {
+            animation: anim 1.5s ease-in-out infinite;
+            -webkit-animation: anim 1.5s ease-in-out infinite;
+            -o-animation: anim 1.5s ease-in-out infinite;
+            -moz-animation: anim 1.5s ease-in-out infinite;
+        }
 
-    .heart:before {
-      left: -15px;
-    }
+        @keyframes anim {
+            0% {
+                transform: scale(0.8);
+            }
 
-    .heart:after {
-      top: -15px;
-    }
+            25% {
+                transform: scale(0.7);
+            }
 
-    @keyframes heartfall {
-      0% {
-        transform: translateY(-100vh) rotate(45deg) scale(0);
-      }
-      50% {
-        transform: translateY(50vh) rotate(45deg) scale(1);
-      }
-      100% {
-        transform: translateY(100vh) rotate(45deg) scale(0);
-      }
-    }
+            50% {
+                transform: scale(1);
+            }
 
-    /* 点击效果 */
-    .click-heart {
-      position: absolute;
-      pointer-events: none;
-      animation: heart-burst 1.5s ease-out forwards;
-      font-size: 30px;
-      filter: drop-shadow(0 0 10px rgba(255, 20, 147, 0.8));
-    }
+            75% {
+                transform: scale(0.7);
+            }
 
-    @keyframes heart-burst {
-      0% {
-        transform: scale(0.1);
-        opacity: 1;
-      }
-      100% {
-        transform: scale(3);
-        opacity: 0;
-      }
-    }
+            100% {
+                transform: scale(0.8);
+            }
+        }
 
-    /* 中央文字 */
-    .valentine {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      color: #ff1493;
-      text-align: center;
-      text-shadow: 2px 2px 10px rgba(255, 255, 255, 0.5);
-    }
+        @-webkit-keyframes anim {
+            0% {
+                -webkit-transform: scale(0.8);
+            }
 
-    .valentine h1 {
-      font-size: 60px;
-      margin: 0;
-      animation: pulse 2s ease-in-out infinite;
-      color: #ff1493;
-      text-shadow: 3px 3px 15px rgba(255, 255, 255, 0.7);
-    }
+            25% {
+                -webkit-transform: scale(0.7);
+            }
 
-    .valentine p {
-      font-size: 24px;
-      margin: 20px 0;
-      line-height: 1.6;
-    }
+            50% {
+                -webkit-transform: scale(1);
+            }
 
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.1); }
-      100% { transform: scale(1); }
-    }
+            75% {
+                -webkit-transform: scale(0.7);
+            }
 
-    .footer {
-      position: absolute;
-      bottom: 20px;
-      width: 100%;
-      text-align: center;
-      color: #ff1493;
-      font-size: 18px;
-      text-shadow: 2px 2px 8px rgba(255, 255, 255, 0.5);
-    }
+            100% {
+                -webkit-transform: scale(0.8);
+            }
+        }
 
-    .easter-egg {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 80%;
-      background: rgba(255, 192, 203, 0.95);
-      color: white;
-      text-align: center;
-      padding: 50px;
-      font-size: 36px;
-      border-radius: 20px;
-      box-shadow: 0 0 30px rgba(255, 20, 147, 0.6);
-      z-index: 1000;
-      opacity: 0;
-      visibility: hidden;
-    }
+        @-o-keyframes anim {
+            0% {
+                -o-transform: scale(0.8);
+            }
 
-    .easter-egg.show {
-      animation: fade-in 1s forwards;
-    }
+            25% {
+                -o-transform: scale(0.7);
+            }
 
-    @keyframes fade-in {
-      from {
-        opacity: 0;
-        visibility: visible;
-      }
-      to {
-        opacity: 1;
-        visibility: visible;
-      }
-    }
-  </style>
+            50% {
+                -o-transform: scale(1);
+            }
+
+            75% {
+                -o-transform: scale(0.7);
+            }
+
+            100% {
+                -o-transform: scale(0.8);
+            }
+        }
+
+        @-moz-keyframes anim {
+            0% {
+                -moz-transform: scale(0.8);
+            }
+
+            25% {
+                -moz-transform: scale(0.7);
+            }
+
+            50% {
+                -moz-transform: scale(1);
+            }
+
+            75% {
+                -moz-transform: scale(0.7);
+            }
+
+            100% {
+                -moz-transform: scale(0.8);
+            }
+        }
+
+        #name {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            margin-top: -20px;
+            font-size: 56px; /* 增大字体 */
+            color: #ff1493; /* 更改为深粉色 */
+            text-shadow: 0 0 20px #ff69b4,
+                        0 0 40px #ff69b4; /* 添加发光效果 */
+            animation: nameGlow 1.5s ease-in-out infinite;
+        }
+
+        @keyframes nameGlow {
+            0% { text-shadow: 0 0 20px #ff69b4; }
+            50% { text-shadow: 0 0 40px #ff1493; }
+            100% { text-shadow: 0 0 20px #ff69b4; }
+        }
+
+        .footer {
+            color: #ff1493 !important; /* 修改页脚颜色 */
+            text-shadow: 0 0 10px #ff69b4;
+        }
+    </style>
 </head>
+
 <body>
-<div class="valentine">
-  <h1>情人节快乐 ❤️</h1>
-  <p>今天是: <span id="date"></span></p>
-  <p>刘逸潇致：最爱的人</p>
+<canvas id="pinkboard" width="1920" height="947"></canvas>
+<div>
+    <div id="name">❤李冬阳❤</div>
+    <canvas id="canvas" width="1920" height="947"></canvas>
+
+    <div class="footer">
+        <a>lyx</a>
+        <a>2025-2-17</a>
+    </div>
 </div>
 
-<div class="easter-egg" id="easter-egg">
-  爱你！💕<br>
-  <span id="countdown">5</span>秒后跳转到更爱你的地方
-</div>
-
-<div class="footer">© 2025 情人节快乐，Love from 刘逸潇</div>
-
-<script>
-  // 显示日期
-  document.getElementById('date').textContent = new Date().toLocaleDateString('zh-CN', {
-    year: 'numeric',
-    month: 'numeric',
-    day: 'numeric'
-  }).replace(/\//, '年').replace(/\//, '月') + '日';
-
-  // 创建飘落的爱心
-  function createHeart() {
-    const heart = document.createElement('div');
-    heart.className = 'heart';
-    heart.style.left = Math.random() * window.innerWidth + 'px';
-    heart.style.opacity = Math.random() * 0.5 + 0.5;
-    heart.style.fontSize = Math.random() * 10 + 10 + 'px';
-    document.body.appendChild(heart);
-
-    setTimeout(() => {
-      heart.remove();
-    }, 4000);
-  }
-
-  // 点击效果
-  document.addEventListener('click', (event) => {
-    const heart = document.createElement('div');
-    heart.innerHTML = '❤️';
-    heart.className = 'click-heart';
-    heart.style.left = event.clientX + 'px';
-    heart.style.top = event.clientY + 'px';
-    document.body.appendChild(heart);
-
-    setTimeout(() => {
-      heart.remove();
-    }, 1500);
-
-    clickCount++;
-    if (clickCount === 10) {
-      showEasterEgg();
-      clickCount = 0;
+<style>
+    .footer {
+        position: absolute;
+        bottom: 0; /* 靠底部 */
+        width: 100%; /* 宽度100% */
+        padding: 20px; /* 内边距 */
+        text-align: center; /* 居中对齐 */
+        color: aqua;
     }
-  });
+</style>
 
-  let clickCount = 0;
+<style>
+    body, li, span, p {
+        cursor: url(mouth.cur), auto;
+    }
+</style>
 
-  function showEasterEgg() {
-    const easterEgg = document.getElementById('easter-egg');
-    const countdown = document.getElementById('countdown');
-    easterEgg.classList.add('show');
-    
-    let seconds = 5;
-    const timer = setInterval(() => {
-      seconds--;
-      countdown.textContent = seconds;
-      if (seconds === 0) {
-        clearInterval(timer);
-        window.location.href = "video.html";
-      }
-    }, 1000);
-  }
+<script type="text/javascript">
+    // 修改颜色数组为粉色系
+    const colors = [
+        "#ff1493", // 深粉红
+        "#ff69b4", // 热粉红
+        "#ffb6c1", // 浅粉红
+        "#ffc0cb", // 粉红
+        "#db7093", // 淡紫红
+        "#ff82ab", // 暗粉红
+        "#ee799f", // 亮珊瑚色
+        "#ff92bb", // 樱桃粉红
+        "#ffb5c5", // 秋叶玫瑰
+        "#ffc1c1", // 浅粉
+    ];
+    var canvas = document.getElementById("canvas");
+    var ctx = canvas.getContext("2d");
+    let count = 1;
 
-  setInterval(createHeart, 300);
+    var ww = window.innerWidth;
+    var wh = window.innerHeight;
+
+    var hearts = [];
+
+    function init() {
+        requestAnimationFrame(render);
+        canvas.width = ww;
+        canvas.height = wh;
+        for (var i = 0; i < 100; i++) {
+            hearts.push(new Heart());
+        }
+    }
+
+    function Heart() {
+        this.x = Math.random() * ww;
+        this.y = Math.random() * wh;
+        this.opacity = Math.random() * 0.5 + 0.5;
+        this.vel = {
+            x: (Math.random() - 0.5) * 4,
+            y: (Math.random() - 0.5) * 4,
+        };
+        this.targetScale = Math.random() * 0.15 + 0.02;
+        this.scale = this.targetScale * Math.random();
+    }
+
+    Heart.prototype.update = function (i) {
+        this.x += this.vel.x;
+        this.y += this.vel.y;
+
+        this.scale += (this.targetScale - this.scale) * 0.01;
+        if (this.x - this.width > ww || this.x + this.width < 0) {
+            this.scale = 0;
+            this.x = Math.random() * ww;
+        }
+        if (this.y - this.height > wh || this.y + this.height < 0) {
+            this.scale = 0;
+            this.y = Math.random() * wh;
+        }
+        this.width = 470;
+        this.height = 400;
+    };
+    Heart.prototype.draw = function (i) {
+        ctx.globalAlpha = this.opacity;
+        ctx.font = `${220 * this.scale}px "微软雅黑"`; // 墛大心形大小
+        ctx.fillStyle = colors[i % 10];
+        ctx.fillText(
+            "❤", // 只显示心形
+            this.x - this.width * 0.5,
+            this.y - this.height * 0.5,
+            this.width,
+            this.height
+        );
+    };
+
+    function render() {
+        ctx.clearRect(0, 0, ww, wh);
+        for (var i = 0; i < 100; i++) {
+            hearts[i].update(i);
+            hearts[i].draw(i);
+        }
+        requestAnimationFrame(render);
+    }
+    init();
+
+
+    window.addEventListener("resize", function () {
+        ww = window.innerWidth;
+        wh = window.innerHeight;
+    });
+</script>
+
+<!--鼠标点击效果-->
+<script src="dianji.js"></script>
+
+<!--悬浮爱心效果-->
+<script src="xuanfu.js"></script>
+
+
+</script>
+<script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script type="text/javascript">
+
+    let ac = new AudioContext();
+
+    $(function (){
+        $("body").click(function(e) {
+            const $i = $("<span/>").text("LDY"); // 随机选择文本
+            const x = e.pageX,
+                y = e.pageY;
+            $i.css({
+                "z-index": 999999999999999999999999999999999999999999999999999999999999999999999,
+                "top": y - 20,
+                "left": x,
+                "position": "absolute",
+                "font-weight": "bold",
+                "color": color16(),
+                "font-size": "80px"  // 设置文字大小
+            });
+            $("body").append($i);
+            load_sound('voice.mp3');
+            $i.animate({
+                    "top": y - 180,
+                    "opacity": 0
+                },
+                1500,
+                function() {
+                    $i.remove();
+                });
+        });
+    });
+
+    function color16(){
+        const r = Math.floor(Math.random()*256);
+        const g = Math.floor(Math.random()*256);
+        const b = Math.floor(Math.random()*256);
+        return `#${r.toString(16)}${g.toString(16)}${b.toString(16)}`;
+    }
+
+    function load_sound(url_data) {
+        const req = new XMLHttpRequest();
+        req.open('GET', url_data, true);
+        req.responseType = 'arraybuffer';
+        req.onload = function() {
+            ac.decodeAudioData(req.response, function(buffer){
+                const source = ac.createBufferSource();
+                source.buffer = buffer;
+                source.connect(ac.destination);
+                source.start(0);
+            },function (e) {
+                console.info('错误');
+            });
+        }
+        req.send();
+    }
+    var OriginTitle = document.title;
+    var titleTime;
+    document.addEventListener('visibilitychange', function () {
+        if (document.hidden) {
+            // $('[rel="icon"]').attr('href', "/funny.ico");
+            document.title = '不可以忘记我哦';
+            clearTimeout(titleTime);
+        }
+        else {
+            $('[rel="icon"]').attr('href', "/favicon.ico");
+            document.title = '(ฅ>ω<*ฅ)~' + OriginTitle;
+            titleTime = setTimeout(function () {
+                document.title = OriginTitle;
+            }, 2000);
+        }
+    });
+
 </script>
 </body>
+
 </html>
